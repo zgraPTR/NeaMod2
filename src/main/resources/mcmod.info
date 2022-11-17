@@ -1,0 +1,16 @@
+[
+{
+  "modid": "Nea7s DnESP",
+  "name": "Nea7s Dn ESP",
+  "description": "Hypixel Skyblock NeaMod2",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/zgraPTR/NeaMod2",
+  "updateUrl": "",
+  "authorList": ["Nea7s", "dxxxxy"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
