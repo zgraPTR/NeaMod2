@@ -11,7 +11,6 @@ import java.awt.*;
 
 public class RenderUtils {
 
-    // esp (透視不可)
     public static void drawOutlinedBoundingBox(AxisAlignedBB aabb, Color color, float width, float partialTicks) {
         Entity render = Minecraft.getMinecraft().getRenderViewEntity();
 
@@ -29,13 +28,12 @@ public class RenderUtils {
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GL11.glLineWidth(width);
 
-        // 描写
         RenderGlobal.drawOutlinedBoundingBox(aabb, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
         GlStateManager.translate(realX, realY, realZ);
 
         //設定を元に戻す
         GlStateManager.depthMask(true);
         GlStateManager.enableTexture2D();
-        GlStateManager.popMatrix(); // 行列削除
+        GlStateManager.popMatrix();
     }
 }

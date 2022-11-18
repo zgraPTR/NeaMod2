@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 
 public class Message {
 
-    // boop に反応
     public static void boop(String message) {
         new Thread(() ->
         {

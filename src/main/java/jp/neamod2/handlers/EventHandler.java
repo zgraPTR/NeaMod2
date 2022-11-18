@@ -1,5 +1,6 @@
 package jp.neamod2.handlers;
 
+import jp.neamod2.features.EnderCrystal;
 import jp.neamod2.gui.NeaGui;
 import jp.neamod2.utils.Utils;
 import jp.neamod2.features.Dungeon;
@@ -33,8 +34,12 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onRenderLivingPre(RenderLivingEvent.Pre<EntityLivingBase> event) {
-        if (Utils.isDungeon) {
+        if (Utils.isDungeonEsp) {
             Dungeon.onRenderLivingPre(event);
+        }
+        if (Utils.isEnderCrystalEsp)
+        {
+            EnderCrystal.onRenderLivingPre();
         }
     }
 
@@ -56,11 +61,12 @@ public class EventHandler {
         }
     }
 
-
+    /*
     @SubscribeEvent
     public void onConfigurationChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
         ConfigHandler.onConfigurationChangedEvent(event);
     }
+     */
 
 
 }

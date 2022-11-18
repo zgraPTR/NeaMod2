@@ -7,9 +7,10 @@ import net.minecraft.util.EnumChatFormatting;
 public class Utils {
     public static String prefix = "§bNeaMod2 > §f"; // chat送信時のprefix
     public static String guiToOpen = null;
-    public static boolean isDungeon=false;
-    public static boolean isMsgTimer =false;
     public static boolean isAutoBoop=true;
+    public static boolean isDungeonEsp =false;
+    public static boolean isEnderCrystalEsp=false;
+    public static boolean isMsgTimer =false;
 
     public static void addChatMessage(String message)
     {

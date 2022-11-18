@@ -6,7 +6,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
-public class DungeonCommand extends CommandBase {
+public class DnEspCommand extends CommandBase {
 
     @Override
     public String getCommandName() {
@@ -15,13 +15,13 @@ public class DungeonCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/"+ getCommandName();
+        return "/" + getCommandName();
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        Utils.isDungeon = !Utils.isDungeon;
-        if (Utils.isDungeon) {
+        Utils.isDungeonEsp = !Utils.isDungeonEsp;
+        if (Utils.isDungeonEsp) {
             Utils.addChatMessage("ダンジョンESPが有効になりました。");
         } else {
             Utils.addChatMessage("ダンジョンESPが無効になりました。");

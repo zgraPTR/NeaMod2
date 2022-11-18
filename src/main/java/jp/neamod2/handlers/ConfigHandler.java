@@ -2,7 +2,6 @@ package jp.neamod2.handlers;
 
 import jp.neamod2.utils.Utils;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 
 import java.io.File;
 
@@ -55,16 +54,16 @@ public class ConfigHandler {
 
     public static void loadConfig() {
         init();
-        Utils.isDungeon = initBoolean("dungeon", "DnEsp", false);
-        Utils.isMsgTimer = initBoolean("message", "MsgTimer", false);
         Utils.isAutoBoop = initBoolean("message", "AutoBoop", true);
+        Utils.isDungeonEsp = initBoolean("dungeon", "DnEsp", false);
+        Utils.isEnderCrystalEsp = initBoolean("block", "EnderCrystalEsp", false);
+        Utils.isMsgTimer = initBoolean("message", "MsgTimer", false);
     }
 
 
     public static void writeBool(String category, String key, Boolean value) {
         configuration.load();
         try {
-            boolean set = configuration.get(category, key, value).getBoolean();
             configuration.getCategory(category).get(key).set(value);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,9 +71,4 @@ public class ConfigHandler {
             configuration.save();
         }
     }
-
-    public static void onConfigurationChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equalsIgnoreCase("neamod2")) configuration.save();
-    }
-
 }

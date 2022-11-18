@@ -1,5 +1,6 @@
 package jp.neamod2.gui;
 
+import jp.neamod2.gui.button.FeatureButton;
 import jp.neamod2.handlers.BrowserHandle;
 import jp.neamod2.handlers.ConfigHandler;
 import jp.neamod2.utils.Utils;
@@ -29,8 +30,9 @@ public class NeaGui extends GuiScreen {
     private GuiButton twitterLink;
     // Toggles
     private GuiButton autoBoop;
-    private GuiButton msgTimer;
     private GuiButton dungeonEsp;
+    private GuiButton enderCrystalEsp;
+    private GuiButton msgTimer;
 
     public NeaGui(int page, String searchText) {
         this.page = page;
@@ -54,19 +56,21 @@ public class NeaGui extends GuiScreen {
         closeGUI = new GuiButton(0, width / 2 - 100, (int) (height * 0.9), "閉じる");
         backPage = new GuiButton(0, width / 2 - 100, (int) (height * 0.8), 80, 20, "< 戻る");
         nextPage = new GuiButton(0, width / 2 + 20, (int) (height * 0.8), 80, 20, "次へ >");
-        pageLink = new GuiButton(0, 2, height - 70, 80, 20, String.format("ページ : %d", page));
+        pageLink = new GuiButton(0, 2, height - 70, 80, 20, String.format("※ ページ : %d", page));
         githubLink = new GuiButton(0, 2, height - 50, 80, 20, "GitHub");
         twitterLink = new GuiButton(0, 2, height - 30, 80, 20, "Twitter");
-        search = new GuiTextField(0, this.fontRendererObj, width - 202, 5, 200, 20);
+        search = new GuiTextField(0, this.fontRendererObj, width - 102, 5, 100, 20);
 
         autoBoop = new GuiButton(0, 0, 0, "Boop! 自動返信 : " + Utils.getColouredBoolean(Utils.isAutoBoop));
-        msgTimer = new GuiButton(0, 0, 0, "※ チャット時間表示 : " + Utils.getColouredBoolean(Utils.isMsgTimer));
-        dungeonEsp = new GuiButton(0, 0, 0, "ダンジョンESP : " + Utils.getColouredBoolean(Utils.isDungeon));
+        msgTimer = new FeatureButton("※ チャット時間表示 : " + Utils.getColouredBoolean(Utils.isMsgTimer), "メッセージの色がつかないバグがあります。\n解決策を探しています。");
+        dungeonEsp = new FeatureButton("ダンジョンESP : " + Utils.getColouredBoolean(Utils.isDungeonEsp), "fel espが規約違反の為、この機能を制限しています。");
+        enderCrystalEsp = new GuiButton(0, 0, 0, "エンダークリスタルESP : " + Utils.getColouredBoolean(Utils.isEnderCrystalEsp));
 
         allButtons.clear();
         allButtons.add(autoBoop);
         allButtons.add(msgTimer);
         allButtons.add(dungeonEsp);
+        allButtons.add(enderCrystalEsp);
 
         search.setText(initSearchText);
         search.setVisible(true);
@@ -111,6 +115,13 @@ public class NeaGui extends GuiScreen {
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
 
+        for (GuiButton button : this.buttonList) {
+            if (button instanceof FeatureButton && button.isMouseOver()) {
+                FeatureButton feature = (FeatureButton) button;
+                drawHoveringText(feature.hoverText, mouseX - 5, mouseY);
+            }
+        }
+
         search.drawTextBox();
     }
 
@@ -132,9 +143,13 @@ public class NeaGui extends GuiScreen {
             autoBoop.displayString = "Boop! 自動返信 : " + Utils.getColouredBoolean(Utils.isAutoBoop);
             ConfigHandler.writeBool("message", "AutoBoop", Utils.isAutoBoop);
         } else if (button == dungeonEsp) {
-            Utils.isDungeon = !Utils.isDungeon;
-            dungeonEsp.displayString = "ダンジョンESP : " + Utils.getColouredBoolean(Utils.isDungeon);
-            ConfigHandler.writeBool("dungeon", "DnEsp", Utils.isDungeon);
+            Utils.isDungeonEsp = !Utils.isDungeonEsp;
+            dungeonEsp.displayString = "ダンジョンESP : " + Utils.getColouredBoolean(Utils.isDungeonEsp);
+            ConfigHandler.writeBool("dungeon", "DnEsp", Utils.isDungeonEsp);
+        } else if (button == enderCrystalEsp) {
+            Utils.isEnderCrystalEsp = !Utils.isEnderCrystalEsp;
+            enderCrystalEsp.displayString = "エンダークリスタルESP : " + Utils.getColouredBoolean(Utils.isEnderCrystalEsp);
+            ConfigHandler.writeBool("block", "EnderCrystalEsp", Utils.isEnderCrystalEsp);
         } else if (button == msgTimer) {
             Utils.isMsgTimer = !Utils.isMsgTimer;
             msgTimer.displayString = "※ チャット時間表示 : " + Utils.getColouredBoolean(Utils.isMsgTimer);
