@@ -1,11 +1,7 @@
 package jp.neamod2.features;
 
-import jp.neamod2.utils.RenderUtils;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraftforge.client.event.RenderLivingEvent;
-
-import java.awt.*;
 
 public class Dungeon {
 

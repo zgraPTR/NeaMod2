@@ -4,6 +4,7 @@ import jp.neamod2.gui.button.FeatureButton;
 import jp.neamod2.handlers.BrowserHandle;
 import jp.neamod2.handlers.ConfigHandler;
 import jp.neamod2.utils.Utils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

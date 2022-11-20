@@ -1,6 +1,7 @@
 package jp.neamod2.commands;
 
 
+import jp.neamod2.utils.ChatUtils;
 import jp.neamod2.utils.Utils;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -19,12 +20,12 @@ public class DnEspCommand extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+    public void processCommand(ICommandSender sender, String[] args) {
         Utils.isDungeonEsp = !Utils.isDungeonEsp;
         if (Utils.isDungeonEsp) {
-            Utils.addChatMessage("ダンジョンESPが有効になりました。");
+            ChatUtils.addChatMessage("ダンジョンESPが有効になりました。");
         } else {
-            Utils.addChatMessage("ダンジョンESPが無効になりました。");
+            ChatUtils.addChatMessage("ダンジョンESPが無効になりました。");
         }
     }
 

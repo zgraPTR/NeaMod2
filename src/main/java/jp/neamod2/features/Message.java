@@ -1,6 +1,6 @@
 package jp.neamod2.features;
 
-import jp.neamod2.utils.Utils;
+import jp.neamod2.utils.ChatUtils;
 import net.minecraft.client.Minecraft;
 
 public class Message {
@@ -9,8 +9,8 @@ public class Message {
         new Thread(() ->
         {
             try {
-                Thread.sleep(200);
-                String playerName = Utils.getPlayerName(message);
+                Thread.sleep(100);
+                String playerName = ChatUtils.getPlayerName(message);
                 Minecraft.getMinecraft().thePlayer.sendChatMessage(String.format("/boop %s", playerName));
             } catch (InterruptedException e) {
 

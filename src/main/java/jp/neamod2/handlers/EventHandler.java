@@ -1,17 +1,15 @@
 package jp.neamod2.handlers;
 
+import jp.neamod2.features.Dungeon;
 import jp.neamod2.features.EnderCrystal;
+import jp.neamod2.features.Message;
 import jp.neamod2.gui.NeaGui;
 import jp.neamod2.utils.Utils;
-import jp.neamod2.features.Dungeon;
-import jp.neamod2.features.Message;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -37,36 +35,25 @@ public class EventHandler {
         if (Utils.isDungeonEsp) {
             Dungeon.onRenderLivingPre(event);
         }
-        if (Utils.isEnderCrystalEsp)
-        {
+        if (Utils.isEnderCrystalEsp) {
             EnderCrystal.onRenderLivingPre();
         }
     }
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        String message = StringUtils.stripControlCodes(event.message.getUnformattedText());
+        String message = event.message.getFormattedText();
 
         // Boop! 自動返信
-        if (message.startsWith("From") && message.endsWith("Boop!") && Utils.isAutoBoop) {
+        if (message.startsWith("§dFrom") && message.endsWith("§r§d§lBoop!§r") && Utils.isAutoBoop) {
             Message.boop(message);
         }
 
         if (Utils.isMsgTimer) {
             LocalDateTime nowDate = LocalDateTime.now();
-            DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("HH:mm:ss"); // 2020/12/20 13:32:48.293
-            String time_str = dtf1.format(nowDate); // ②
-            // メッセージの最初に時間を表示する
-            event.message = new ChatComponentText(String.format("§6<%s> §f%s", time_str, message));
+            DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("HH:mm:ss"); //時間:分:秒
+            String time_str = dtf1.format(nowDate);
+            event.message = new ChatComponentText(String.format(" §a<%s> ", time_str)).appendSibling(event.message);
         }
     }
-
-    /*
-    @SubscribeEvent
-    public void onConfigurationChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
-        ConfigHandler.onConfigurationChangedEvent(event);
-    }
-     */
-
-
 }
