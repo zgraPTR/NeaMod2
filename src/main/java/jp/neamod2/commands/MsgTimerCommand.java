@@ -3,7 +3,6 @@ package jp.neamod2.commands;
 import jp.neamod2.utils.ChatUtils;
 import jp.neamod2.utils.Utils;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
 public class MsgTimerCommand extends CommandBase {
@@ -15,7 +14,7 @@ public class MsgTimerCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/msgtimer";
+        return "/"+getCommandName();
     }
 
     @Override

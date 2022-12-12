@@ -1,8 +1,8 @@
 package jp.neamod2.handlers;
 
-import jp.neamod2.features.Dungeon;
-import jp.neamod2.features.EnderCrystal;
-import jp.neamod2.features.Message;
+import jp.neamod2.features.DungeonFeature;
+import jp.neamod2.features.EnderCrystalFeature;
+import jp.neamod2.features.MessageFeature;
 import jp.neamod2.gui.NeaGui;
 import jp.neamod2.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -33,10 +33,10 @@ public class EventHandler {
     @SubscribeEvent
     public void onRenderLivingPre(RenderLivingEvent.Pre<EntityLivingBase> event) {
         if (Utils.isDungeonEsp) {
-            Dungeon.onRenderLivingPre(event);
+            DungeonFeature.onRenderLivingPre(event);
         }
         if (Utils.isEnderCrystalEsp) {
-            EnderCrystal.onRenderLivingPre();
+            EnderCrystalFeature.onRenderLivingPre();
         }
     }
 
@@ -46,12 +46,12 @@ public class EventHandler {
 
         // Boop! 自動返信
         if (message.startsWith("§dFrom") && message.endsWith("§r§d§lBoop!§r") && Utils.isAutoBoop) {
-            Message.boop(message);
+            MessageFeature.boop(message);
         }
 
         if (Utils.isMsgTimer) {
             LocalDateTime nowDate = LocalDateTime.now();
-            DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("HH:mm:ss"); //時間:分:秒
+            DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("HH:mm"); //時間:分
             String time_str = dtf1.format(nowDate);
             event.message = new ChatComponentText(String.format(" §a<%s> ", time_str)).appendSibling(event.message);
         }

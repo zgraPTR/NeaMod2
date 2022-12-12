@@ -10,7 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-@Mod(modid = "neamod2", name = "Nea7s Mod 2", version = "v1.1.2")
+@Mod(modid = "neamod2", name = "Nea7s Mod 2", version = "v1.1.3")
 public class Main {
 
     @Mod.EventHandler

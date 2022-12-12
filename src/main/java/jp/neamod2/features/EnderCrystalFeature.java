@@ -7,7 +7,7 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 
 import java.awt.*;
 
-public class EnderCrystal {
+public class EnderCrystalFeature {
 
     public static void onRenderLivingPre() {
         for (final Entity e : Minecraft.getMinecraft().theWorld.loadedEntityList) {

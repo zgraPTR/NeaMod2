@@ -4,7 +4,6 @@ package jp.neamod2.commands;
 import jp.neamod2.utils.ChatUtils;
 import jp.neamod2.utils.Utils;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
 public class DnEspCommand extends CommandBase {

@@ -2,7 +2,6 @@ package jp.neamod2.commands;
 
 import jp.neamod2.utils.Utils;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
 public class NeaGuiCommand extends CommandBase {
@@ -15,11 +14,11 @@ public class NeaGuiCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/" + getCommandName();
+        return "/"+getCommandName();
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+    public void processCommand(ICommandSender sender, String[] args) {
         Utils.guiToOpen = "Main 1";
     }
 
