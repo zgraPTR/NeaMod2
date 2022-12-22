@@ -10,8 +10,8 @@ Hypixel Skyblock 用のModです。
 
 - From ... Boop!自動返信
 - チャット左端に投稿時間表示
-- エンダークリスタルESP (黄色)
-- FelsのESP (星付きmob、SA、FAなど追加予定)
+- エンダークリスタルESP
+- 釣りタイマー
 
 </details>
 
@@ -21,8 +21,6 @@ Hypixel Skyblock 用のModです。
 ### コマンド一覧
 
 - /neamod2 - このModのGUIを開きます
-- /dnesp - ダンジョンESPのon、off切り替え ※fel のespが規約違反と認定されたため、修正中です。
-- /msgtimer - チャット左端の投稿時間表示のon、off切り替え
 
 </details>
 
@@ -31,7 +29,6 @@ Hypixel Skyblock 用のModです。
 
 ### 今後の予定
 
-- ダンジョン系ESPの追加 (fel espの修正)
 - コマンドの追加、動作の最適化など
 
 </details>

@@ -9,12 +9,18 @@ import java.awt.*;
 
 public class EnderCrystalFeature {
 
-    public static void onRenderLivingPre() {
-        for (final Entity e : Minecraft.getMinecraft().theWorld.loadedEntityList) {
-            if (e instanceof EntityEnderCrystal) {
-                RenderUtils.drawOutlinedBoundingBox(e.getEntityBoundingBox(), Color.yellow, 3, 1f);
+    public static final EnderCrystalFeature INSTANCE = new EnderCrystalFeature();
+
+    public static EnderCrystalFeature getInstance() {
+        return INSTANCE;
+    }
+
+    public void RenderLivingEvent() {
+
+        for (Entity entity : Minecraft.getMinecraft().theWorld.loadedEntityList) {
+            if (entity instanceof EntityEnderCrystal) {
+                RenderUtils.drawOutlinedBoundingBox(entity.getEntityBoundingBox(), Color.YELLOW, 2f);
             }
         }
-
     }
 }

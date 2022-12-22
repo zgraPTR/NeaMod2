@@ -1,74 +1,132 @@
 package jp.neamod2.handlers;
 
+import jp.neamod2.utils.ChatUtils;
+import jp.neamod2.utils.ConfigUtils;
 import jp.neamod2.utils.Utils;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
 
 public class ConfigHandler {
+    static final String configFile = "config/NeaMod2.cfg";
+    static Configuration config = new Configuration(new File(configFile));
 
-    public static Configuration configuration;
-    private final static String configFile = "config/NeaMod2.cfg";
 
-
-    public static boolean getBoolean(String category, String key) {
-        configuration.load();
-        if (configuration.getCategory(category).containsKey(key)) {
-            return configuration.get(category, key, false).getBoolean();
-        }
-        return true;
-    }
-
-    public static boolean hasKey(String category, String key) {
-        configuration.load();
+    public static boolean getBool(String category, String key, boolean defaultValue) {
+        config.load();
         try {
-            if (!configuration.hasCategory(category)) return false;
-            return configuration.getCategory(category).containsKey(key);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            return config.get(category, key, defaultValue).getBoolean();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ChatUtils.addChatMessage("ConfigHandler -> initエラー");
         } finally {
-            configuration.save();
+            config.save();
         }
         return false;
     }
 
-    public static void init() {
-        configuration = new Configuration(new File(configFile));
+    public static int getInt(String category, String key, int defaultValue) {
+        config.load();
         try {
-            configuration.load();
+            return config.get(category, key, 0).getInt();
         } catch (Exception e) {
             e.printStackTrace();
+            ChatUtils.addChatMessage("ConfigHandler -> initエラー");
         } finally {
-            configuration.save();
+            config.save();
+        }
+        return 0;
+    }
+
+    public static String getStr(String category, String key, String defaultValue) {
+        config.load();
+        try {
+            return config.get(category, key, "None").getString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ChatUtils.addChatMessage("ConfigHandler -> initエラー");
+        } finally {
+            config.save();
+        }
+        return "None";
+    }
+
+    public static void writeBool(String category, String key, boolean value) {
+        try {
+            boolean set = config.get(category, key, value).getBoolean();
+            config.getCategory(category).get(key).set(value);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ChatUtils.addChatMessage("ConfigHandler -> initエラー");
+        } finally {
+            config.save();
         }
     }
 
-    public static boolean initBoolean(String category, String key, boolean defaultValue) {
+    public static void writeInt(String category, String key, int value) {
+        try {
+            int set = config.get(category, key, value).getInt();
+            config.getCategory(category).get(key).set(value);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ChatUtils.addChatMessage("ConfigHandler -> initエラー");
+        } finally {
+            config.save();
+        }
+    }
+
+    public static void writeStr(String category, String key, String value) {
+        try {
+            String set = config.get(category, key, value).getString();
+            config.getCategory(category).get(key).set(value);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ChatUtils.addChatMessage("ConfigHandler -> initエラー");
+        } finally {
+            config.save();
+        }
+    }
+
+    static boolean hasKey(String category, String key) {
+        config.load();
+        try {
+            if (!config.hasCategory(category)) return false;
+            return config.getCategory(category).containsKey(key);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            config.save();
+        }
+        return false;
+    }
+
+    static void init() {
+        try {
+            config.load();
+        } catch (Exception e) {
+            Utils.println("ConfigHandler -> initエラー");
+            e.printStackTrace();
+        } finally {
+            config.save();
+        }
+    }
+
+    static boolean initBoolean(String category, String key, boolean defaultValue) {
         if (!hasKey(category, key)) {
             writeBool(category, key, defaultValue);
             return defaultValue;
         } else {
-            return getBoolean(category, key);
+            return getBool(category, key, defaultValue);
         }
     }
 
-    public static void loadConfig() {
+    public static void load() {
         init();
-        Utils.isAutoBoop = initBoolean("message", "AutoBoop", true);
-        Utils.isDungeonEsp = initBoolean("dungeon", "DnEsp", false);
-        Utils.isEnderCrystalEsp = initBoolean("block", "EnderCrystalEsp", false);
-        Utils.isMsgTimer = initBoolean("message", "MsgTimer", false);
+        ConfigUtils.msgTimer = initBoolean("message", "MsgTimer", false);
+        ConfigUtils.replyBoop = initBoolean("message", "ReplyBoop", true);
+        ConfigUtils.fishTimer = initBoolean("message", "FishTimer", false);
+        ConfigUtils.dungeonEsp = initBoolean("esp", "Dungeon", false);
+        ConfigUtils.enderCrystalEsp = initBoolean("esp", "EnderCrystal", false);
     }
 
-
-    public static void writeBool(String category, String key, Boolean value) {
-        configuration.load();
-        try {
-            configuration.getCategory(category).get(key).set(value);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            configuration.save();
-        }
-    }
 }

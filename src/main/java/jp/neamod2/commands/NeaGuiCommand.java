@@ -6,7 +6,6 @@ import net.minecraft.command.ICommandSender;
 
 public class NeaGuiCommand extends CommandBase {
 
-
     @Override
     public String getCommandName() {
         return "neamod2";
@@ -14,7 +13,7 @@ public class NeaGuiCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/"+getCommandName();
+        return "/" + getCommandName();
     }
 
     @Override
@@ -23,7 +22,8 @@ public class NeaGuiCommand extends CommandBase {
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
+    public int getRequiredPermissionLevel() {
+        return 0;
     }
+
 }

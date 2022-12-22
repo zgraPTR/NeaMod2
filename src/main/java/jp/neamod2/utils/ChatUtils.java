@@ -6,7 +6,11 @@ import net.minecraft.util.ChatComponentText;
 public class ChatUtils {
 
     public static void addChatMessage(String message) {
-        Minecraft.getMinecraft().thePlayer.addChatMessage((new ChatComponentText(String.format("%s %s", Utils.prefix, message))));
+        if (Minecraft.getMinecraft().thePlayer != null) {
+            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(String.format("%s %s", Utils.prefix, message)));
+        } else {
+            Utils.println(message);
+        }
     }
 
     public static String getPlayerName(String content) {

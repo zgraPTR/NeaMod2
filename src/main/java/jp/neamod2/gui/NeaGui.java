@@ -3,8 +3,8 @@ package jp.neamod2.gui;
 import jp.neamod2.gui.button.FeatureButton;
 import jp.neamod2.handlers.BrowserHandle;
 import jp.neamod2.handlers.ConfigHandler;
+import jp.neamod2.utils.ConfigUtils;
 import jp.neamod2.utils.Utils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -30,10 +30,11 @@ public class NeaGui extends GuiScreen {
     private GuiTextField search;
     private GuiButton twitterLink;
     // Toggles
-    private GuiButton autoBoop;
+    private GuiButton replyBoop;
     private GuiButton dungeonEsp;
     private GuiButton enderCrystalEsp;
     private GuiButton msgTimer;
+    private GuiButton fishTimer;
 
     public NeaGui(int page, String searchText) {
         this.page = page;
@@ -62,16 +63,18 @@ public class NeaGui extends GuiScreen {
         twitterLink = new GuiButton(0, 2, height - 30, 80, 20, "Twitter");
         search = new GuiTextField(0, this.fontRendererObj, width - 102, 5, 100, 20);
 
-        autoBoop = new GuiButton(0, 0, 0, "Boop! 自動返信 : " + Utils.getColouredBoolean(Utils.isAutoBoop));
-        msgTimer = new FeatureButton("※ チャット時間表示 : " + Utils.getColouredBoolean(Utils.isMsgTimer), "メッセージの色がつかないバグがあります。\n解決策を探しています。");
-        dungeonEsp = new FeatureButton("ダンジョンESP : " + Utils.getColouredBoolean(Utils.isDungeonEsp), "fel espが規約違反の為、この機能を制限しています。");
-        enderCrystalEsp = new GuiButton(0, 0, 0, "エンダークリスタルESP : " + Utils.getColouredBoolean(Utils.isEnderCrystalEsp));
+        replyBoop = new GuiButton(0, 0, 0, "Boop! 自動返信 : " + Utils.getColouredBoolean(ConfigUtils.replyBoop));
+        msgTimer = new GuiButton(0, 0, 0, "チャット時間表示 : " + Utils.getColouredBoolean(ConfigUtils.msgTimer));
+        dungeonEsp = new FeatureButton("※ ダンジョンESP : " + Utils.getColouredBoolean(ConfigUtils.dungeonEsp), "fel espが規約違反の為、この機能を制限しています。");
+        enderCrystalEsp = new GuiButton(0, 0, 0, "エンダークリスタルESP : " + Utils.getColouredBoolean(ConfigUtils.enderCrystalEsp));
+        fishTimer = new GuiButton(0, 0, 0, "釣りタイマー : " + Utils.getColouredBoolean(ConfigUtils.fishTimer));
 
         allButtons.clear();
-        allButtons.add(autoBoop);
+        allButtons.add(replyBoop);
         allButtons.add(msgTimer);
         allButtons.add(dungeonEsp);
         allButtons.add(enderCrystalEsp);
+        allButtons.add(fishTimer);
 
         search.setText(initSearchText);
         search.setVisible(true);
@@ -139,22 +142,26 @@ public class NeaGui extends GuiScreen {
         } else if (button == nextPage) {
             mc.displayGuiScreen(new NeaGui(page + 1, search.getText()));
             // toggle
-        } else if (button == autoBoop) {
-            Utils.isAutoBoop = !Utils.isAutoBoop;
-            autoBoop.displayString = "Boop! 自動返信 : " + Utils.getColouredBoolean(Utils.isAutoBoop);
-            ConfigHandler.writeBool("message", "AutoBoop", Utils.isAutoBoop);
+        } else if (button == replyBoop) {
+            ConfigUtils.replyBoop = !ConfigUtils.replyBoop;
+            replyBoop.displayString = "Boop! 自動返信 : " + Utils.getColouredBoolean(ConfigUtils.replyBoop);
+            ConfigHandler.writeBool("message", "ReplyBoop", ConfigUtils.replyBoop);
         } else if (button == dungeonEsp) {
-            Utils.isDungeonEsp = !Utils.isDungeonEsp;
-            dungeonEsp.displayString = "ダンジョンESP : " + Utils.getColouredBoolean(Utils.isDungeonEsp);
-            ConfigHandler.writeBool("dungeon", "DnEsp", Utils.isDungeonEsp);
+            ConfigUtils.dungeonEsp = !ConfigUtils.dungeonEsp;
+            dungeonEsp.displayString = "※ ダンジョンESP : " + Utils.getColouredBoolean(ConfigUtils.dungeonEsp);
+            ConfigHandler.writeBool("esp", "Dungeon", ConfigUtils.dungeonEsp);
         } else if (button == enderCrystalEsp) {
-            Utils.isEnderCrystalEsp = !Utils.isEnderCrystalEsp;
-            enderCrystalEsp.displayString = "エンダークリスタルESP : " + Utils.getColouredBoolean(Utils.isEnderCrystalEsp);
-            ConfigHandler.writeBool("block", "EnderCrystalEsp", Utils.isEnderCrystalEsp);
+            ConfigUtils.enderCrystalEsp = !ConfigUtils.enderCrystalEsp;
+            enderCrystalEsp.displayString = "エンダークリスタルESP : " + Utils.getColouredBoolean(ConfigUtils.enderCrystalEsp);
+            ConfigHandler.writeBool("esp", "EnderCrystal", ConfigUtils.enderCrystalEsp);
+        } else if (button == fishTimer) {
+            ConfigUtils.fishTimer = !ConfigUtils.fishTimer;
+            fishTimer.displayString = "釣りタイマー : " + Utils.getColouredBoolean(ConfigUtils.fishTimer);
+            ConfigHandler.writeBool("message", "FishTimer", ConfigUtils.msgTimer);
         } else if (button == msgTimer) {
-            Utils.isMsgTimer = !Utils.isMsgTimer;
-            msgTimer.displayString = "※ チャット時間表示 : " + Utils.getColouredBoolean(Utils.isMsgTimer);
-            ConfigHandler.writeBool("message", "MsgTimer", Utils.isMsgTimer);
+            ConfigUtils.msgTimer = !ConfigUtils.msgTimer;
+            msgTimer.displayString = "チャット時間表示 : " + Utils.getColouredBoolean(ConfigUtils.msgTimer);
+            ConfigHandler.writeBool("message", "MsgTimer", ConfigUtils.msgTimer);
         }
     }
 
